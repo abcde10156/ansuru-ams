@@ -19,6 +19,15 @@
     </modules>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/profiles/${profiles.active}</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -32,4 +41,29 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+
+        <profile>
+            <id>dev</id>
+            <activation><activeByDefault>true</activeByDefault></activation>
+            <properties>
+                <profiles.active>dev</profiles.active>
+                <profiles.skip>true</profiles.skip>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profiles.active>prod</profiles.active>
+                <profiles.skip>true</profiles.skip>
+
+            </properties>
+        </profile>
+
+
+
+    </profiles>
 </project>
