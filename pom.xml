@@ -14,7 +14,7 @@
     </properties>
     <modules>
         <module>ansuru-ams-common</module>
-        <module>ausuru-ams-web</module>
+        <module>ansuru-ams-web</module>
         <module>ansuru-ams-svr</module>
     </modules>
 
