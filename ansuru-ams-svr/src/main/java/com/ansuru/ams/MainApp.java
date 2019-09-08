@@ -10,7 +10,6 @@ public class MainApp {
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
 
         UserService userService = (UserService) app.getBean("userService");
-        System.out.println("userService = " + userService);
 
     }
 }

@@ -15,22 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LoginController {
 
-    public LoginController() {
-        System.out.println("controoler");
-    }
-
     @Autowired
     UserService userService;
 
     @RequestMapping("login")
     @ResponseBody
     public LoginResponse login(LoginRequest loginRequest) {
-        System.out.println("loginRequest = " + JsonUtils.toJson(loginRequest));
-        System.out.println("userService = " + userService);
         RequestSvrUserGet requestSvrUserGet = new RequestSvrUserGet();
         requestSvrUserGet.setId(1L);
         ResponseSvrUserGet user = userService.findById(requestSvrUserGet);
-        System.out.println("user = " + JsonUtils.toJson(user));
         LoginResponse response = new LoginResponse();
         response.setStatus(0);
         return response;
