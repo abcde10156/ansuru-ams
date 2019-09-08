@@ -1,0 +1,172 @@
+﻿<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <context:component-scan base-package="com.ansuru.ams.*"/>
+    <mvc:annotation-driven>
+        <mvc:async-support default-timeout="30000"/>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <!--jsp resolver beging add by chengwenbo 2015-12-10 10:38:58 start-->
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="exposedContextBeanNames">
+            <list>
+                <value>properties</value>
+            </list>
+        </property>
+        <property name="order" value="1"/>
+    </bean>
+
+    <!--&lt;!&ndash;velocity config beging add by chengwenbo 2015-11-21 01:41:44 start&ndash;&gt;-->
+    <!--<bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">-->
+        <!--<property name="suffix" value=".vm"/>-->
+        <!--<property name="contentType" value="text/html;charset=UTF-8"/>-->
+        <!--<property name="exposeSessionAttributes" value="true"/>-->
+        <!--&lt;!&ndash;自定义工具使用&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="toolboxConfigLocation" value="classpath:common/velocity-toolbox.xml"/>&ndash;&gt;-->
+        <!--<property name="cache" value="false"/>-->
+        <!--<property name="order" value="0"/>-->
+    <!--</bean>-->
+    <!--<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">-->
+        <!--<property name="resourceLoaderPath" value="/WEB-INF/pages/"/>-->
+        <!--<property name="configLocation" value="/WEB-INF/velocity/velocity.properties"/>-->
+    <!--</bean>-->
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/static/**"/>-->
+            <!--<mvc:exclude-mapping path="/captchahtm"/>-->
+            <!--<mvc:exclude-mapping path="/get_image_code**"/>-->
+            <!--<mvc:exclude-mapping path="/login/**"/>-->
+            <!--<mvc:exclude-mapping path="/out/**"/>-->
+            <!--<mvc:exclude-mapping path="/ueditor/**"/>-->
+            <!--<mvc:exclude-mapping path="/paper/parsed/**"/>-->
+            <!--<bean id="loggedInterceptor" class="com.noriental.teacherweb.security.interceptors.LoggedInterceptor">-->
+                <!--<property name="whiteList">-->
+                    <!--<list>-->
+                        <!--<value>/</value>-->
+                        <!--&lt;!&ndash; 注册 &ndash;&gt;-->
+                        <!--<value>/login</value>-->
+                        <!--<value>/to_login</value>-->
+                        <!--&lt;!&ndash; 注册 &ndash;&gt;-->
+                        <!--<value>/register</value>-->
+                        <!--<value>/register/agreement</value>-->
+                        <!--<value>/invite/check</value>-->
+                        <!--<value>/teacher/add</value>-->
+
+                        <!--&lt;!&ndash; 学科学段教材版本 &ndash;&gt;-->
+                        <!--<value>/data/stage</value>-->
+                        <!--<value>/data/subject</value>-->
+                        <!--<value>/data/directory</value>-->
+                        <!--<value>/data/version</value>-->
+                        <!--<value>/data/subject</value>-->
+                        <!--<value>/permission/no/</value>-->
+
+                        <!--&lt;!&ndash; app段学生上课接口 &ndash;&gt;-->
+                        <!--<value>/classroominteraction/studentDoExerciseSubmit</value>-->
+                        <!--<value>/classroominteraction/stuFindStudentExerciseRecords</value>-->
+                        <!--<value>/classroominteraction/studentCorrectExercise</value>-->
+                        <!--<value>/login2</value>-->
+                        <!--<value>/user/verify_mobile</value>-->
+                        <!--<value>/user/modify_pass_send_sms</value>-->
+                        <!--<value>/user/modify_pass_check_sms</value>-->
+                        <!--<value>/user/modify_pass_nologin</value>-->
+                        <!--<value>/user/login_send_sms</value>-->
+                        <!--<value>/user/login_verify_code</value>-->
+                        <!--<value>/find_password</value>-->
+                        <!--<value>/resource/cover_resource</value>-->
+                        <!--&lt;!&ndash;该接口采用jsonp，在接口中自行校验登陆 &ndash;&gt;-->
+                        <!--<value>/reg/get_stages</value>-->
+                        <!--<value>/reg/get_grades_subjects</value>-->
+                        <!--<value>/reg/get_classes</value>-->
+                        <!--<value>/reg/get_identity_info</value>-->
+                        <!--<value>/reg/submit_reg</value>-->
+                        <!--<value>/reg/submit</value>-->
+                        <!--<value>/reg/submit_info</value>-->
+                        <!--<value>/reg/submit_classes</value>-->
+                        <!--<value>/reg/auto_login</value>-->
+                        <!--<value>/reg/get_schools</value>-->
+                        <!--<value>/reg-message</value>-->
+                        <!--<value>/open_register</value>-->
+                        <!--<value>/open_register/agreement</value>-->
+                        <!--<value>/wizard</value>-->
+                        <!--<value>/reg/send_sms</value>-->
+                        <!--<value>/resource_vm/upload-protocol</value>-->
+
+                        <!--&lt;!&ndash;直播&ndash;&gt;-->
+                        <!--<value>/public/live</value>-->
+                    <!--</list>-->
+                <!--</property>-->
+
+            <!--</bean>-->
+        <!--</mvc:interceptor>-->
+
+        <!--<mvc:interceptor>-->
+        <!--<mvc:mapping path="/**"/>-->
+        <!--<bean id="statisController" class="com.noriental.teacherweb.statics.LogStaticsInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean name="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>multipart/form-data;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+
+    </mvc:annotation-driven>
+    <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJacksonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="exceptionResolve" class="com.noriental.teacherweb.utils.MyExceptionResolver"/>-->
+
+    <!--<mvc:resources location="/WEB-INF/pages/" mapping="/**/*.xhtml"/>-->
+    <mvc:resources location="/WEB-INF/pages/" mapping="/**/*.html"/>
+    <!--<mvc:resources mapping="/static/css/images/**" location="/resources/img/"/>-->
+    <!--<mvc:resources mapping="/static/images/**" location="/resources/img/"/>-->
+    <!--<mvc:resources mapping="/images/**" location="/resources/img/"/>-->
+    <!--<mvc:resources mapping="/ueditor/**" location="/ueditor/"/>-->
+
+    <!--<mvc:resources mapping="/resources/images/**" location="/resources/img/"/>-->
+    <!--<mvc:resources mapping="/resources/**" location="/resources/"/>-->
+    <!--<mvc:resources mapping="/favicon.ico" location="/"/>-->
+    <!--<mvc:resources mapping="/static/**" location="/resources/" cache-period="31556926"/>-->
+    <!--<mvc:resources mapping="/static/wb/**" location="/resources/wb/"/>-->
+
+</beans>

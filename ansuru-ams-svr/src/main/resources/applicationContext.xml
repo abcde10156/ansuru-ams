@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+    <!--<context:property-placeholder location="classpath:*.properties" />-->
+    <context:component-scan base-package="com.ansuru.ams.**.service"/>
+
+    <aop:aspectj-autoproxy/>
+    <!--统一的dataSource-->
+
+
+    <!-- Begin:update by wenbo.cheng for by Mysql数据源-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- druid setting  v3库-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://192.168.100.104:5432/ams"/>
+        <property name="username" value="dbuser"/>
+        <property name="password" value="123456"/>
+        <!--<property name="initialSize" value="${ds.druid.initialSize}"/>-->
+        <!--<property name="minIdle" value="${ds.druid.minIdle}"/>-->
+        <!--<property name="maxActive" value="${ds.druid.maxActive}"/>-->
+        <!--<property name="maxWait" value="${ds.druid.maxWait}"/>-->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="${ds.druid.timeBetweenEvictionRunsMillis}"/>-->
+        <!--<property name="minEvictableIdleTimeMillis" value="${ds.druid.minEvictableIdleTimeMillis}"/>-->
+        <!--<property name="filters" value="${ds.druid.filters}"/>-->
+        <!--<property name="proxyFilters">-->
+            <!--<list>-->
+                <!--<ref bean="stat-filter"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    </bean>
+
+
+
+    <bean id="sqlSessionFactory" name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mappers/mybatis-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:mappers/EntityUserMapper.xml</value>
+            </array>
+        </property>
+        <property name="plugins">
+            <list>
+                <!--<ref bean="paginationInterceptor"/>-->
+                <ref bean="sqlCostInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="sqlCostInterceptor" class="com.ansuru.ams.common.utils.SqlCostInterceptor"/>
+
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ansuru.ams.svr.user.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+    <!--End:add by wenbo.cheng at 2015-08-04 14:11:31 for config mysql datasource-->
+
+    <!-- ================================== TRANSACTION DEFINITIONS ================================== -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--<tx:method name="find*" propagation="SUPPORTS" read-only="true" />-->
+            <tx:method name="create*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="make*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="batch*" propagation="REQUIRED"/>
+            <tx:method name="reset*" propagation="REQUIRED" />
+            <tx:method name="upload*" propagation="REQUIRED" />
+            <tx:method name="doc*" propagation="REQUIRED" />
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="submit*" propagation="REQUIRED" isolation="SERIALIZABLE"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="serviceMethods" expression="(execution(* com.ansuru.*.service.impl..*(..)))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
+    </aop:config>
+
+    <!-- druid 关联监控配置 ：方法名正则拦截匹配 -->
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
+
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+          scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.noriental.*.dao.*</value>
+            </list>
+        </property>
+    </bean>
+    <aop:config>
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
+    </aop:config>
+
+
+    <!-- stat_filter sql监控 -->
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <property name="mergeSql" value="true" />
+        <property name="slowSqlMillis" value="500" />
+        <property name="logSlowSql" value="true" />
+    </bean>
+</beans>

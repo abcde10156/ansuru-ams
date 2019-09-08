@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ansuru</groupId>
+        <artifactId>ansuru-ams</artifactId>
+        <version>1.0.1</version>
+    </parent>
+    <artifactId>ansuru-ams-svr</artifactId>
+    <version>1.0.1</version>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.ansuru</groupId>
+            <artifactId>ansuru-ams-common</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
+</project>
