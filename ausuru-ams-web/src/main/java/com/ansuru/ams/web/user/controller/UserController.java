@@ -26,6 +26,7 @@ public class UserController {
         ResponseSvrUserFind entityUserPageInfo = userService.find(requestUserFind);
         ResponseWebUserFind responseWebUserFind = new ResponseWebUserFind();
         responseWebUserFind.setPageResult(entityUserPageInfo.getPageResult());
+        System.out.println(123123);
         return responseWebUserFind;
     }
 }
