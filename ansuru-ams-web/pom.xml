@@ -21,5 +21,13 @@
             <artifactId>ansuru-ams-svr</artifactId>
             <version>1.0.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>9.4.20.v20190813</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
