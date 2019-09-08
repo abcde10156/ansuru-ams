@@ -13,6 +13,8 @@ public class MainWeb {
     }//D:\JavaProject\teacher-web\src\test\java\com.noriental\Jetty_Teacher.java
 
     public static void main(String[] args)throws Exception{
+
+
         startup("E:\\project\\ansuru\\ansuru-ams\\ansuru-ams-web\\src\\main\\webapp", "/", 7000);
     }
 }
