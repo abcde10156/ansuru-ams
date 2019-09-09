@@ -11,6 +11,8 @@ public class LoginRequest extends Request {
 
     private Date loginTime;
 
+    private Date logoutTime;
+
     public String getUsername() {
         return username;
     }
@@ -33,5 +35,13 @@ public class LoginRequest extends Request {
 
     public void setLoginTime(Date loginTime) {
         this.loginTime = loginTime;
+    }
+
+    public Date getLogoutTime() {
+        return logoutTime;
+    }
+
+    public void setLogoutTime(Date logoutTime) {
+        this.logoutTime = logoutTime;
     }
 }
