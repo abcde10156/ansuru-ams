@@ -8,4 +8,6 @@ public interface UserMapper {
      EntityUser findById(Long id);
 
      List<EntityUser> find(EntityUser entityUser);
+
+     List<EntityUser> findByName(String name);
 }
