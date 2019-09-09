@@ -24,5 +24,5 @@ public class LoginRequest extends Request {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
 }
