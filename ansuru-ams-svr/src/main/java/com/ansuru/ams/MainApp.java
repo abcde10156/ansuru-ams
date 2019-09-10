@@ -3,18 +3,20 @@ package com.ansuru.ams;
 import com.ansuru.ams.svr.user.dao.AssetMapper;
 import com.ansuru.ams.svr.user.entity.Asset;
 import com.ansuru.ams.svr.user.entity.AssetExample;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
+
 
 public class MainApp {
 
     public static void main(String[] args)throws Exception{
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        AssetMapper userService = (AssetMapper) app.getBean("assetMapper");
-        System.out.println("userService = " + userService);
+        AssetMapper assetMapper = (AssetMapper) app.getBean("assetMapper");
+        System.out.println("assetMapper = " + assetMapper);
 
 //        Asset asset = new Asset();
 //        asset.setAssetName("test123");
@@ -24,11 +26,12 @@ public class MainApp {
 
         AssetExample assetExample = new AssetExample();
 
-        assetExample.createCriteria() .andAssetNameEqualTo("adf12312");
-        assetExample.or().andAssetNameEqualTo("456");
+//        assetExample.createCriteria() .andAssetNameEqualTo("adf12312");
+//        assetExample.or().andAssetNameEqualTo("456");
+//
+//        List<Asset> assets = userService.selectByExample(assetExample);
+//        System.out.println("assets = " + assets);
 
-        List<Asset> assets = userService.selectByExample(assetExample);
-        System.out.println("assets = " + assets);
-
+        List<Asset> id = assetMapper.selectList(new QueryWrapper<Asset>().eq("id", 1L));
     }
 }
