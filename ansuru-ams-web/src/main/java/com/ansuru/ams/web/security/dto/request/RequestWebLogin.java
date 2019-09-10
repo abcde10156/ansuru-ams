@@ -1,10 +1,10 @@
-package com.ansuru.ams.web.security.dto;
+package com.ansuru.ams.web.security.dto.request;
 
 import com.ansuru.ams.common.dto.Request;
 
 import java.util.Date;
 
-public class LoginRequest extends Request {
+public class RequestWebLogin extends Request {
     public String username;
 
     public String password;

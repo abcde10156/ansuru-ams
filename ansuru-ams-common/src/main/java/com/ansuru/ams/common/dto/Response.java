@@ -1,6 +1,15 @@
 package com.ansuru.ams.common.dto;
 
 public class Response {
+
+    public Response(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public Response() {
+    }
+
     private String requestId;
 
     private int code;
