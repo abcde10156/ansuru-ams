@@ -26,12 +26,11 @@ public class MainApp {
 
         AssetExample assetExample = new AssetExample();
 
-//        assetExample.createCriteria() .andAssetNameEqualTo("adf12312");
-//        assetExample.or().andAssetNameEqualTo("456");
+        assetExample.createCriteria() .andAssetNameEqualTo("adf12312");
+        assetExample.or().andAssetNameEqualTo("456");
 //
-//        List<Asset> assets = userService.selectByExample(assetExample);
-//        System.out.println("assets = " + assets);
+        List<Asset> assets = assetMapper.selectByExample(assetExample);
+        System.out.println("assets = " + assets);
 
-        List<Asset> id = assetMapper.selectList(new QueryWrapper<Asset>().eq("id", 1L));
     }
 }
