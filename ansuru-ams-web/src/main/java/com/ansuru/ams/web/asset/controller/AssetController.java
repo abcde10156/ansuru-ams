@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("asset")
 public class AssetController {
 
-//1234568
+
+//12345678
+
 
 
 //132aaaaa1312sadsa11112
