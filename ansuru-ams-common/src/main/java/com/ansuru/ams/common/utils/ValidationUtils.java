@@ -27,7 +27,7 @@ public class ValidationUtils {
         Set<ConstraintViolation<T>> constraintViolations = validator.validate(obj);
         // 抛出检验异常
         if (constraintViolations.size() > 0) {
-            throw new RuntimeException(String.format("参数校验失败:%s", constraintViolations.iterator().next().getMessage()));
+            throw new RuntimeException(constraintViolations.iterator().next().getMessage());
         }
     }
 }
