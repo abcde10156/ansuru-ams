@@ -1,10 +1,10 @@
 ﻿<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <context:component-scan base-package="com.ansuru.ams.*"/>
     <mvc:annotation-driven>
         <mvc:async-support default-timeout="30000"/>
@@ -14,6 +14,13 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <aop:aspectj-autoproxy/>
+
+    <!--<bean id="paramInterceptor" class="com.ansuru.ams.web.security.interceptors.ParamPreHandlerInterceptor"/>-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="serviceMethods" expression="(execution(* (com.ansuru..*Controller).*(..)))"/>-->
+        <!--<aop:advisor advice-ref="paramInterceptor" pointcut-ref="serviceMethods"/>-->
+    <!--</aop:config>-->
 
 
     <!--jsp resolver beging add by chengwenbo 2015-12-10 10:38:58 start-->
@@ -53,17 +60,17 @@
 
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
-    <!--<mvc:interceptors>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**"/>-->
-            <!--<mvc:exclude-mapping path="/static/**"/>-->
-            <!--<mvc:exclude-mapping path="/captchahtm"/>-->
-            <!--<mvc:exclude-mapping path="/get_image_code**"/>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/captchahtm"/>
+            <mvc:exclude-mapping path="/get_image_code**"/>
             <!--<mvc:exclude-mapping path="/login/**"/>-->
-            <!--<mvc:exclude-mapping path="/out/**"/>-->
-            <!--<mvc:exclude-mapping path="/ueditor/**"/>-->
-            <!--<mvc:exclude-mapping path="/paper/parsed/**"/>-->
-            <!--<bean id="loggedInterceptor" class="com.noriental.teacherweb.security.interceptors.LoggedInterceptor">-->
+            <mvc:exclude-mapping path="/out/**"/>
+            <mvc:exclude-mapping path="/ueditor/**"/>
+            <mvc:exclude-mapping path="/paper/parsed/**"/>
+            <bean id="loggedInterceptor" class="com.ansuru.ams.web.security.interceptors.LoginCheckInterceptor">
                 <!--<property name="whiteList">-->
                     <!--<list>-->
                         <!--<value>/</value>-->
@@ -120,14 +127,14 @@
                     <!--</list>-->
                 <!--</property>-->
 
-            <!--</bean>-->
-        <!--</mvc:interceptor>-->
+            </bean>
+        </mvc:interceptor>
 
         <!--<mvc:interceptor>-->
         <!--<mvc:mapping path="/**"/>-->
         <!--<bean id="statisController" class="com.noriental.teacherweb.statics.LogStaticsInterceptor"/>-->
         <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    </mvc:interceptors>
 
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
@@ -153,8 +160,7 @@
             </list>
         </property>
     </bean>
-
-    <!--<bean id="exceptionResolve" class="com.noriental.teacherweb.utils.MyExceptionResolver"/>-->
+    <!--<bean id="exceptionResolve" class="com.ansuru.ams.web.common.MyExceptionResolver"/>-->
 
     <!--<mvc:resources location="/WEB-INF/pages/" mapping="/**/*.xhtml"/>-->
     <mvc:resources location="/WEB-INF/pages/" mapping="/**/*.html"/>

@@ -4,7 +4,7 @@ import com.ansuru.ams.common.dto.Response;
 import com.ansuru.ams.svr.user.entity.EntityUser;
 import com.github.pagehelper.PageInfo;
 
-public class ResponseWebUserFind extends Response {
+public class ResponseWebUserFind {
     public PageInfo<EntityUser> pageResult;
 
     public PageInfo<EntityUser> getPageResult() {

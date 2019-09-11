@@ -13,6 +13,10 @@ import java.util.List;
 @Service
 public class UserAdminServiceImpl implements UserAdminService {
 
+    public UserAdminServiceImpl() {
+        System.out.println(321321);
+    }
+
     @Resource
     UserAdminMapper userAdminMapper;
 
