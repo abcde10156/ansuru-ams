@@ -36,34 +36,11 @@ public class LoginController extends BaseController {
 
         RequestSvrUserAdminFind request = new RequestSvrUserAdminFind();
         request.setLoginName(loginRequest.getUsername());
-//        ResponseSvrUserAdminFind userAdmin = userAdminService.findByUserName(request);
-//        if(userAdmin.getUserAdmin()==null){
-//            return new Response(-1,"user does not exists");
-//        }
-        ResponseWebLogin response = new ResponseWebLogin();
-//        response.setUser(userAdmin.getUserAdmin());
-        if (loginRequest.getUsername().equals("admin")) {
-            return fail(10000, "eeeoruser");
+        ResponseSvrUserAdminFind userAdmin = userAdminService.findByUserName(request);
+        if(userAdmin.getUserAdmin()==null){
+            return fail(-1,"user does not exists");
         }
+        ResponseWebLogin response = new ResponseWebLogin();
         return success(response);
-    }
-
-    @RequestMapping("login1")
-    @ResponseBody
-    public Object login1(@Valid @RequestBody RequestWebLogin loginRequest, BindingResult result) {
-        System.out.println("result = " + result);
-        if (result.hasErrors()) {
-            System.out.println("loginRequest = " + loginRequest);
-        }
-        RequestSvrUserAdminFind request = new RequestSvrUserAdminFind();
-        request.setLoginName(loginRequest.getUsername());
-//        ResponseSvrUserAdminFind userAdmin = userAdminService.findByUserName(request);
-//        if(userAdmin.getUserAdmin()==null){
-//            return new Response(-1,"user does not exists");
-//        }
-        ResponseWebLogin response = new ResponseWebLogin();
-//        response.setUser(userAdmin.getUserAdmin());
-
-        return new Object();
     }
 }
