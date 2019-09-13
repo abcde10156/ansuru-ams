@@ -4,6 +4,7 @@ package com.ansuru.ams.web.security;
 import com.ansuru.ams.common.dto.Response;
 import com.ansuru.ams.svr.user.dto.request.RequestSvrUserAdminFind;
 import com.ansuru.ams.svr.user.dto.response.ResponseSvrUserAdminFind;
+import com.ansuru.ams.svr.user.entity.UserAdmin;
 import com.ansuru.ams.svr.user.service.UserAdminService;
 import com.ansuru.ams.web.common.BaseController;
 import com.ansuru.ams.web.security.dto.request.RequestWebLogin;
@@ -38,7 +39,9 @@ public class LoginController extends BaseController {
             return fail(-1,"user does not exists");
         }
         ResponseWebLogin response = new ResponseWebLogin();
-        response.setUser(userAdmin.getUserAdmin());
+        UserAdmin userAdmin1 = new UserAdmin();
+        userAdmin1.setId(1);
+        response.setUser(userAdmin1);
         return success(response);
     }
 }

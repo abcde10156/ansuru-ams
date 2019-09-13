@@ -4,6 +4,8 @@ import com.ansuru.ams.common.dto.Request;
 import com.ansuru.ams.common.dto.Response;
 import com.ansuru.ams.common.utils.*;
 import com.ansuru.ams.web.common.ErrorCodeWeb;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,22 +20,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
-@Aspect
-@Component
-public class ParamPreHandlerInterceptor {
+public class ParamPreHandlerInterceptor implements MethodInterceptor{
 
     private static final Logger logger = LoggerFactory.getLogger(ParamPreHandlerInterceptor.class);
 
-    public ParamPreHandlerInterceptor() {
-    }
-
-    @Pointcut("(execution(* (com.ansuru..*Controller).*(..)))")
-    private void pointCutMethod() {
-
-    }
-
-    @Around("pointCutMethod()")
-    public Object invoke(ProceedingJoinPoint pjp) throws Throwable {
+    @Override
+    public Object invoke(MethodInvocation invocation) throws Throwable {
         HttpServletRequest httpRequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String traceno = httpRequest.getHeader("traceno");
         Enumeration<String> headerNames = httpRequest.getHeaderNames();
@@ -44,7 +36,7 @@ public class ParamPreHandlerInterceptor {
         }
 
 
-        Object[] args = pjp.getArgs();
+        Object[] args = invocation.getArguments();
         int requestObjectCount = 0;
         Request request = null;
         for (Object arg : args) {
@@ -73,7 +65,7 @@ public class ParamPreHandlerInterceptor {
         request.setTraceNo(traceno);
         Object proceed = null;
         try {
-            proceed = pjp.proceed();
+            proceed = invocation.proceed();
         } catch (Throwable throwable) {
             ExceptionUtils.printException(throwable);
             if (throwable instanceof BizException) {
@@ -94,7 +86,7 @@ public class ParamPreHandlerInterceptor {
         return proceed;
     }
 
-    public void setTraceNo(String traceNo, Object o) {
+    private void setTraceNo(String traceNo, Object o) {
         if (o instanceof Request) {
             Request request = (Request) o;
             request.setTraceNo(traceNo);
