@@ -38,6 +38,7 @@ public class LoginController extends BaseController {
             return fail(-1,"user does not exists");
         }
         ResponseWebLogin response = new ResponseWebLogin();
+        response.setUser(userAdmin.getUserAdmin());
         return success(response);
     }
 }
