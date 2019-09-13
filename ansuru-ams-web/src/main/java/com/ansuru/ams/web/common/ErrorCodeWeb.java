@@ -1,12 +1,12 @@
 package com.ansuru.ams.web.common;
 
-public class ErrorCode {
+public class ErrorCodeWeb {
 
     private int code = 99999;
 
     private String errorMessage = "";
 
-    public ErrorCode(int code, String errorMessage) {
+    public ErrorCodeWeb(int code, String errorMessage) {
         this.code = code;
         this.errorMessage = errorMessage;
     }
@@ -27,6 +27,6 @@ public class ErrorCode {
         this.errorMessage = errorMessage;
     }
 
-    public static ErrorCode ERROR_INPUT = new ErrorCode(99999, "");
-    public static ErrorCode ERROR_INTERNAL = new ErrorCode(99998, "internal error");
+    public static ErrorCodeWeb ERROR_INPUT = new ErrorCodeWeb(99999, "");
+    public static ErrorCodeWeb ERROR_INTERNAL = new ErrorCodeWeb(99998, "internal error");
 }

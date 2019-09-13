@@ -1,5 +1,7 @@
 package com.ansuru.ams.common.utils;
 
+
+
 public class BizException extends RuntimeException{
     private int code;
 
@@ -11,6 +13,12 @@ public class BizException extends RuntimeException{
         super(msg);
         this.code = code;
         this.msg = msg;
+    }
+
+    public BizException(ErrorCode data) {
+        super(data.getErrorMessage());
+        this.code = data.getCode();
+        this.msg = data.getErrorMessage();
     }
 
     public BizException(String message, int code, String msg, Object data) {

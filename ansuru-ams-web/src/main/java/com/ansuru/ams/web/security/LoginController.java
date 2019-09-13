@@ -2,13 +2,10 @@ package com.ansuru.ams.web.security;
 
 
 import com.ansuru.ams.common.dto.Response;
-import com.ansuru.ams.common.utils.BizException;
 import com.ansuru.ams.svr.user.dto.request.RequestSvrUserAdminFind;
 import com.ansuru.ams.svr.user.dto.response.ResponseSvrUserAdminFind;
-import com.ansuru.ams.svr.user.entity.UserAdmin;
 import com.ansuru.ams.svr.user.service.UserAdminService;
 import com.ansuru.ams.web.common.BaseController;
-import com.ansuru.ams.web.common.ErrorCode;
 import com.ansuru.ams.web.security.dto.request.RequestWebLogin;
 import com.ansuru.ams.web.security.dto.response.ResponseWebLogin;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.ansuru.ams.web.security.interceptors;
 import com.ansuru.ams.common.dto.Request;
 import com.ansuru.ams.common.dto.Response;
 import com.ansuru.ams.common.utils.*;
-import com.ansuru.ams.web.common.ErrorCode;
+import com.ansuru.ams.web.common.ErrorCodeWeb;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -55,7 +55,7 @@ public class ParamPreHandlerInterceptor {
             }
         }
         if (requestObjectCount != 1) {
-            Response response = Response.makeErrorResponse(ErrorCode.ERROR_INTERNAL.getCode(), ErrorCode.ERROR_INTERNAL.getErrorMessage());
+            Response response = Response.makeErrorResponse(ErrorCodeWeb.ERROR_INTERNAL.getCode(), ErrorCodeWeb.ERROR_INTERNAL.getErrorMessage());
             response.getMeta().setTraceNo(traceno);
             logger.info("o:{}", JsonUtils.toJson(response));
             return response;
@@ -64,7 +64,7 @@ public class ParamPreHandlerInterceptor {
 
         String validateError = ValidationUtils.validate(request);
         if (StringUtils.hasText(validateError)) {
-            Response response = Response.makeErrorResponse(ErrorCode.ERROR_INPUT.getCode(), validateError);
+            Response response = Response.makeErrorResponse(ErrorCodeWeb.ERROR_INPUT.getCode(), validateError);
             response.getMeta().setTraceNo(traceno);
             logger.info("o:{}", JsonUtils.toJson(response));
             return response;

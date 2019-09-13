@@ -1,5 +1,7 @@
 package com.ansuru.ams.svr.user.service;
 
+import com.ansuru.ams.common.ErrorCodeSvr;
+import com.ansuru.ams.common.utils.BizException;
 import com.ansuru.ams.svr.user.dao.UserAdminMapper;
 import com.ansuru.ams.svr.user.dto.request.RequestSvrUserAdminFind;
 import com.ansuru.ams.svr.user.dto.response.ResponseSvrUserAdminFind;
@@ -13,10 +15,6 @@ import java.util.List;
 @Service
 public class UserAdminServiceImpl implements UserAdminService {
 
-    public UserAdminServiceImpl() {
-        System.out.println(321321);
-    }
-
     @Resource
     UserAdminMapper userAdminMapper;
 
@@ -27,7 +25,7 @@ public class UserAdminServiceImpl implements UserAdminService {
         userAdminExample.createCriteria().andUsernameEqualTo(request.getLoginName());
         List<UserAdmin> userAdmins = userAdminMapper.selectByExample(userAdminExample);
         if(userAdmins.size()!=1){
-            throw new RuntimeException("username error");
+            throw new BizException(ErrorCodeSvr.ERROR_USER_NOT_FOUND);
         }
         UserAdmin userAdmin = userAdmins.get(0);
         ResponseSvrUserAdminFind responseUserAdminFind = new ResponseSvrUserAdminFind();
