@@ -34,14 +34,9 @@ public class LoginController extends BaseController {
 
         RequestSvrUserAdminFind request = new RequestSvrUserAdminFind();
         request.setLoginName(loginRequest.getUsername());
-        ResponseSvrUserAdminFind userAdmin = userAdminService.findByUserName(request);
-        if(userAdmin.getUserAdmin()==null){
-            return fail(-1,"user does not exists");
-        }
+        ResponseSvrUserAdminFind serviceByUserName = userAdminService.findByUserName(request);
         ResponseWebLogin response = new ResponseWebLogin();
-        UserAdmin userAdmin1 = new UserAdmin();
-        userAdmin1.setId(1);
-        response.setUser(userAdmin1);
+        response.setUser(serviceByUserName.getUserAdmin());
         return success(response);
     }
 }
