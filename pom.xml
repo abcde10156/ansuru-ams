@@ -18,6 +18,9 @@
         <module>ansuru-ams-svr</module>
     </modules>
 
+
+
+
     <build>
         <resources>
             <resource>
