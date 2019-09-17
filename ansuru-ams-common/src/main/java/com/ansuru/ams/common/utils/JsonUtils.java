@@ -23,13 +23,16 @@ public class JsonUtils {
     private static ObjectMapper om = new ObjectMapper();
 
     static {
+        // 忽略NULl
+        om.setSerializationInclusion(Include.NON_NULL);
 
         // 对象的所有字段全部列入，还是其他的选项，可以忽略null等
-        om.setSerializationInclusion(Include.ALWAYS);
+//        om.setSerializationInclusion(Include.ALWAYS);
         // 设置Date类型的序列化及反序列化格式
         om.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
         // 忽略空Bean转json的错误
+        om.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         om.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         // 忽略未知属性，防止json字符串中存在，java对象中不存在对应属性的情况出现错误
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

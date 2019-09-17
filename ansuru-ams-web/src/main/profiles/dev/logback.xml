@@ -99,6 +99,7 @@
 
     <logger name="org.eclipse.jetty" level="INFO" />
     <logger name="com.alibaba.dubbo" level="INFO"/>
+    <logger name="org.hibernate" level="WARN"/>
 
     <logger name="com.ansuru.sql" level="DEBUG">
         <appender-ref ref="SQL" />

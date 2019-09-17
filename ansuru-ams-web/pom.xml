@@ -29,11 +29,6 @@
             <scope>provided</scope>
         </dependency>
 
-
-
-
-
-
         <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -41,11 +36,17 @@
             <version>9.4.20.v20190813</version>
             <scope>test</scope>
         </dependency>
-        
-        
-        
-        
-        
-        
+
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+
+
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 </project>

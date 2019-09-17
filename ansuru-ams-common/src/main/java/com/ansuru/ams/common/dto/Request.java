@@ -1,13 +1,13 @@
 package com.ansuru.ams.common.dto;
 
 public class Request {
-    private String requestId;
+    private String traceNo;
 
-    public String getRequestId() {
-        return requestId;
+    public String getTraceNo() {
+        return traceNo;
     }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
+    public void setTraceNo(String traceNo) {
+        this.traceNo = traceNo;
     }
 }
