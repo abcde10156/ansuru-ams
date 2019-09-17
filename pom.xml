@@ -16,6 +16,7 @@
         <module>ansuru-ams-common</module>
         <module>ansuru-ams-web</module>
         <module>ansuru-ams-svr</module>
+        
     </modules>
 
 
@@ -31,7 +32,7 @@
                 <directory>src/main/resources</directory>
             </resource>
 
-            
+
         </resources>
         <plugins>
 
