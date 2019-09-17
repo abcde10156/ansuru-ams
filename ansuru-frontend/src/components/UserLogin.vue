@@ -44,11 +44,6 @@
 						</div>
 					</el-row>
 
-					<el-row id="gap-adjust">
-						Or
-						<router-link to="/user-signup" id="rlink">Create New Account</router-link>
-					</el-row>
-
 				</el-form>
 			</el-card>
 		</el-col>
@@ -61,6 +56,7 @@ export default {
   name: 'UserLogin',
 	data:function() {
 		return {
+
 			loginForm: {
 				name: '',
 				password: '',
@@ -76,17 +72,20 @@ export default {
 			rules: {
 				name: [
 	        { required: true, message: 'Please input Username', trigger: 'blur' },
-	        { max: 50, message: 'Username should be at most 50 characters', trigger: 'blur' }
+	        { min: 2, max: 50, message: 'Username should be at least 2, at most 50 characters', trigger: 'blur' }
 	      ],
 	      password: [
 	        { required: true, message: 'Please input Password', trigger: 'blur' },
-	        { max: 50, message: 'Password should be at most 50 characters', trigger: 'blur' }
+	        { min: 2, max: 50, message: 'Password should be at least 2, at most 50 characters', trigger: 'blur' }
 	      ],
 	      loginType: [
 	        { required: true, message: 'Please select loginType', trigger: 'blur' },
 	      ],
 			}
 		}	
+	},
+	mounted() {
+		console.log("adminLogin ::" + this.$store)
 	},
 	methods: {
 		selectedUType() {
