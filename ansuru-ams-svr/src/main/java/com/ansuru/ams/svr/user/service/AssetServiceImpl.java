@@ -23,9 +23,14 @@ public class AssetServiceImpl implements AssetService {
     public ResponseSvrPagerAsset listPager(RequestSvrPagerAsset in) {
         AssetExample assetExample = new AssetExample();
         AssetExample.Criteria criteria = assetExample.createCriteria();
-        if(StringUtils.hasText(in.getAssetCode())){
-            criteria.andAssetCodeEqualTo(in.getAssetCode());
+        if (StringUtils.hasText(in.getAssetCode())) {
+            criteria.andAssetCodeLike("%" + in.getAssetCode() + "%");
         }
+
+        if (StringUtils.hasText(in.getAssetName())) {
+            criteria.andAssetNameLike("%" + in.getAssetName() + "%");
+        }
+
         PageHelper.startPage(in.getPage(), in.getPageSize());
         List<Asset> assets = assetMapper.selectByExample(assetExample);
         PageInfo<Asset> page = new PageInfo<>(assets);
