@@ -30,7 +30,7 @@ public class LoginController extends BaseController {
 
     @RequestMapping("login")
     @ResponseBody
-    public Response login(@Valid @RequestBody RequestWebLogin loginRequest, BindingResult result) {
+    public Response login(@Valid @RequestBody RequestWebLogin loginRequest) {
 
         RequestSvrUserAdminFind request = new RequestSvrUserAdminFind();
         request.setLoginName(loginRequest.getUsername());
