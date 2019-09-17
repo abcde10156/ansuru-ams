@@ -45,11 +45,11 @@ public class Response<T> {
 
     private Meta meta;
 
-    private Response(int code, String message) {
+    public Response(int code, String message) {
         this.meta = new Meta(code, message);
     }
 
-    private Response() {
+    public Response() {
         this.meta = new Meta();
     }
 

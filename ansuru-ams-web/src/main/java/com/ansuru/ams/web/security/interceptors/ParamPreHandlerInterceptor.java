@@ -35,7 +35,13 @@ public class ParamPreHandlerInterceptor implements MethodInterceptor{
             logger.debug("header:[{}:{}]", nn, value);
         }
 
-
+        if(invocation.getMethod().getReturnType()!=Response.class){
+            logger.error("controller return object must be subclass of Response");
+            Response response = Response.makeErrorResponse(ErrorCodeWeb.ERROR_INTERNAL.getCode(), ErrorCodeWeb.ERROR_INTERNAL.getErrorMessage());
+            response.getMeta().setTraceNo(traceno);
+            logger.info("o:{}", JsonUtils.toJson(response));
+            return response;
+        }
         Object[] args = invocation.getArguments();
         int requestObjectCount = 0;
         Request request = null;
@@ -47,6 +53,7 @@ public class ParamPreHandlerInterceptor implements MethodInterceptor{
             }
         }
         if (requestObjectCount != 1) {
+            logger.error("controller parameters must constants a subclass of Request at least");
             Response response = Response.makeErrorResponse(ErrorCodeWeb.ERROR_INTERNAL.getCode(), ErrorCodeWeb.ERROR_INTERNAL.getErrorMessage());
             response.getMeta().setTraceNo(traceno);
             logger.info("o:{}", JsonUtils.toJson(response));
