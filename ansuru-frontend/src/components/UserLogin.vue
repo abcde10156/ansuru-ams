@@ -6,25 +6,25 @@
 				<el-form :model="loginForm" ref="loginForm" :rules="rules">
 
 					<el-row>
-						<el-form-item label="名前" id="gap-adjust" prop="name">
+						<el-form-item label="User Name" id="gap-adjust" prop="name">
 							<el-input v-model="loginForm.name"></el-input>
 						</el-form-item>
 					</el-row>
 					<el-row>
-						<el-form-item label="パスワード" name="password" prop="password" id="gap-adjust">
+						<el-form-item label="Password" name="password" prop="password" id="gap-adjust">
 							<el-input v-model="loginForm.password"></el-input>
 						</el-form-item>
 					</el-row>
 
 					<el-row id="gap-adjust">
 						<el-col :span="6">
-							<el-form-item label="ログイン種別"></el-form-item>
+							<el-form-item label="Login Type"></el-form-item>
 						</el-col>
 						<el-col :span="18">
 							<el-form-item prop="loginType">
 								<el-select 
 									v-model="loginForm.loginType"
-									placeholder="ログイン種別"
+									placeholder="Login Type"
 									style="width: 100%;"
 									@change="selectedUType">
 									<el-option
@@ -52,11 +52,12 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex'
 export default {
   name: 'UserLogin',
 	data:function() {
 		return {
-
+			adminLogin: '',
 			loginForm: {
 				name: '',
 				password: '',
@@ -66,7 +67,7 @@ export default {
 					label: 'Admin',
 				},{
 					value: 2,
-					label: 'User',
+					label: 'General',
 				}]
 			},
 			rules: {
@@ -85,8 +86,13 @@ export default {
 		}	
 	},
 	mounted() {
-		console.log("adminLogin ::" + this.$store)
+		// console.log("UserLogin loginType ::" + this.$store.state.loginType)
+		console.log("UserLogin adminLogin ::" + this.$store.state.adminLogin)
 	},
+	// computed:{
+ //   ...mapState(['loginType'])
+ //   // Now you can read the name by using this.name
+ //  },
 	methods: {
 		selectedUType() {
 			console.log("selectedUType::: " + this.loginForm.loginType)
@@ -95,6 +101,13 @@ export default {
 			this.$refs[formName].validate((valid) => {
         if (valid) {
         	// call api & check username & password
+        	if ( this.loginForm.loginType == 1 ) {
+        		this.$store.state.loginStatus = true
+        		this.$store.state.adminLogin = true
+        	} else {
+        		this.$store.state.loginStatus = true
+        		this.$store.state.adminLogin = false
+        	}
 					this.$router.push({path: '/assets-list'})
         } else {
           console.log('error submit!!');

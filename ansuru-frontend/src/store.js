@@ -3,13 +3,23 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const vuexStore = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  }
-})
+export function vuexStore () {
+	return new Vuex.Store({
+	  state: {
+	    // loginType: '',
+	    loginStatus: false,
+	    adminLogin: false,
+	    assetFormMode: 'add',
+	    assetCode: '',
+	    assetName: '',
+	    classification: '',
+	    condition: '',
+	    pic: '',
+	    starts: '',
+	    ends: '',
+	  },
+	  mutations: {
+	    
+	  }
+	})
+} 
