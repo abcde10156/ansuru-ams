@@ -5,10 +5,17 @@
       <el-header>
         <el-row :gutter="20">
           <el-col :span="6">
-            <router-link to="/" id="rlink">
-              <h2 id="logo">Ansur's</h2>
-            </router-link>
+            <a href="#" @click.prevent="assetsList()" style="text-decoration: none;">
+              <h1 id="logo">Ansur's</h1>
+            </a>
           </el-col>
+          <!-- <el-col :span="4" :offset="14">
+            <el-row  v-if="loginStatus">
+              <a href="#" @click.prevent="logoutUser()" style="text-decoration: none;">
+                <h4 id="logo">Logout</h4>
+              </a>
+            </el-row>
+          </el-col> -->
         </el-row>     
       </el-header>
 
@@ -25,15 +32,23 @@
 
 <script>
 export default {
-  name: 'Signup',
+  name: 'Ansuru',
   data:function() {
     return {
-      userLogin: false,
-      adminLogin: false,
+      
     } 
   },
-  methods: {
+  mounted() {
     
+  },
+  methods: {
+    assetsList() {
+      if (this.$store.state.loginStatus == true ) {
+        this.$router.push({path: '/assets-list'})
+      } else {
+        this.$router.push({path: '/'})
+      }
+    }
   },
 }
 </script>
